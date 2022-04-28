@@ -249,7 +249,7 @@ class ViewController: UIViewController {
                     numberArray.removeAll()
                     //                    numberArray.append(0)
                     numberOnScreen = 0
-                    numString = "\(numberOnScreen)"
+                    numString = "\((Int(numberOnScreen)))"
                 }
                 numberLabel.text = numString
                 print(numberArray)
