@@ -208,10 +208,10 @@ class ViewController: UIViewController {
         } else {
             /// 否則不去除小數點
             finalText = "\(number)"
-        }
-        // 只顯示小數點後9位數
-        if finalText.count >= 8 {
-            finalText = String(finalText.prefix(10))
+            // 只顯示小數點後9位數
+            if finalText.count >= 8 {
+                finalText = String(finalText.prefix(10))
+            }
         }
         numberLabel.text = finalText
         signLabel.text = ""
