@@ -7,7 +7,7 @@
 
 import UIKit
 
-/* 例舉，加減乘除等號 **/
+/* 加減乘除等號 **/
 enum OperationType {
     case add
     case subtract
@@ -15,7 +15,7 @@ enum OperationType {
     case divide
     // none > 沒進行計算時預設的狀態
     case none
-    case percent
+    case percent    // 百分比符號
 }
 
 class ViewController: UIViewController {
@@ -79,12 +79,13 @@ class ViewController: UIViewController {
             }
             print("\(numberArray)")
             /// 將數字字串轉為Double，顯示在畫面上 > 用來計算
+//            let doubleStr = String(format: "%.8f", Double(numberLabel.text!) ?? 0)
+//            numberOnScreen = Double(doubleStr) ?? 0
             numberOnScreen = Double(numberLabel.text!) ?? 0
         }
     }
     
     /* 小數點 **/
-    //    這邊有問題
     @IBAction func point(_ sender: UIButton) {
         if numberLabel.text?.contains(".") == false {
             isPoint = true
@@ -115,6 +116,7 @@ class ViewController: UIViewController {
         previousNumber = numberOnScreen
         numberLabel.text = "0"
         numberArray.removeAll()
+        print("第一位數：\(previousNumber)")
     }
     
     /* 乘法動作 **/
@@ -128,11 +130,11 @@ class ViewController: UIViewController {
         previousNumber = numberOnScreen
         numberLabel.text = "0"
         numberArray.removeAll()
+        print("第一位數：\(previousNumber)")
     }
     
     /* 減法動作 **/
     @IBAction func subtract(_ sender: UIButton) {
-        
         signLabel.text = "-"
         numberLabel.text = "0"
         /// 按下計算符號，呼叫enum
@@ -142,6 +144,7 @@ class ViewController: UIViewController {
         /// 先前顯示的數字 存到計算數字中，等等要計算用
         previousNumber = numberOnScreen
         numberArray.removeAll()
+        print("第一位數：\(previousNumber)")
     }
     
     /* 加法動作 **/
@@ -155,39 +158,43 @@ class ViewController: UIViewController {
         isCalculation = true
         previousNumber = numberOnScreen
         numberArray.removeAll()
+        print("第一位數：\(previousNumber)")
     }
     
     /* 等號動作 **/
     @IBAction func getAnswer(_ sender: UIButton){
         // 當運算的狀態是正在運算時，switch判斷
         if isCalculation == true {
+            print("第二位數：\(numberOnScreen)")
             switch operation {
             case .add:
                 /// 將計算後的數字存回 numberOnScreen
-                numberOnScreen = previousNumber + numberOnScreen
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) + Decimal(numberOnScreen)).doubleValue
                 /// 再呼叫 makeOkNumberString方法，畫面上顯示正確的數值字串
                 makeOkNumberString(from: numberOnScreen)
             case .subtract:
                 /// 將計算後的數字存回 numberOnScreen
-                numberOnScreen = previousNumber - numberOnScreen
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) - Decimal(numberOnScreen)).doubleValue
                 /// 再呼叫 makeOkNumberString方法，畫面上顯示正確的數值字串
                 makeOkNumberString(from: numberOnScreen)
             case .multiply:
                 /// 將計算後的數字存回 numberOnScreen
-                numberOnScreen = previousNumber * numberOnScreen
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) * Decimal(numberOnScreen)).doubleValue
                 /// 再呼叫 makeOkNumberString方法，畫面上顯示正確的數值字串
                 makeOkNumberString(from: numberOnScreen)
             case .divide:
                 /// 將計算後的數字存回 numberOnScreen
-                numberOnScreen = previousNumber / numberOnScreen
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) / Decimal(numberOnScreen)).doubleValue
                 /// 再呼叫 makeOkNumberString方法，畫面上顯示正確的數值字串
                 makeOkNumberString(from: numberOnScreen)
             case .none:
                 numberLabel.text = "0"
             case .percent:
-                numberOnScreen = Double(previousNumber * 0.01)
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) * Decimal(0.01) ).doubleValue
+              
                 makeOkNumberString(from: numberOnScreen)
             }
+            print("結果數：\(numberOnScreen)")
             /// 最後再將運算狀態改為false
             isCalculation = false
             /// 重啟新的計算，避免相沖
@@ -207,10 +214,11 @@ class ViewController: UIViewController {
             finalText = "\(Int(number))"
         } else {
             /// 否則不去除小數點
-            finalText = "\(number)"
-            // 只顯示小數點後9位數
+            finalText = String(format: "%.7f", number)
+            // 只顯示小數點後7位數
             if finalText.count >= 8 {
-                finalText = String(finalText.prefix(10))
+                finalText = String(finalText.prefix(9))
+//                numberLabel.adjustsFontSizeToFitWidth = true
             }
         }
         numberLabel.text = finalText
