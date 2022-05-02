@@ -166,28 +166,28 @@ class ViewController: UIViewController {
             switch operation {
             case .add:
                 /// 將計算後的數字存回 numberOnScreen
-                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) + Decimal(numberOnScreen)).doubleValue
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber + numberOnScreen)).doubleValue
                 /// 再呼叫 makeOkNumberString方法，畫面上顯示正確的數值字串
                 makeOkNumberString(from: numberOnScreen)
             case .subtract:
                 /// 將計算後的數字存回 numberOnScreen
-                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) - Decimal(numberOnScreen)).doubleValue
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber - numberOnScreen)).doubleValue
                 /// 再呼叫 makeOkNumberString方法，畫面上顯示正確的數值字串
                 makeOkNumberString(from: numberOnScreen)
             case .multiply:
                 /// 將計算後的數字存回 numberOnScreen
-                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) * Decimal(numberOnScreen)).doubleValue
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber * numberOnScreen)).doubleValue
                 /// 再呼叫 makeOkNumberString方法，畫面上顯示正確的數值字串
                 makeOkNumberString(from: numberOnScreen)
             case .divide:
                 /// 將計算後的數字存回 numberOnScreen
-                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) / Decimal(numberOnScreen)).doubleValue
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber / numberOnScreen)).doubleValue
                 /// 再呼叫 makeOkNumberString方法，畫面上顯示正確的數值字串
                 makeOkNumberString(from: numberOnScreen)
             case .none:
                 numberLabel.text = "0"
             case .percent:
-                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber) * Decimal(0.01) ).doubleValue
+                numberOnScreen = NSDecimalNumber(decimal: Decimal(previousNumber * 0.01)).doubleValue
               
                 makeOkNumberString(from: numberOnScreen)
             }
