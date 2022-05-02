@@ -41,13 +41,10 @@ class ViewController: UIViewController {
     //確認是否已點擊小數點
     var isPoint = false
     
-    var signClick = false
-    
     // Bool變數，是否重啟新的計算，避免上一次計算結果影響新的計算
     var newStart = true
     
     var numberArray :[Any] = []      //保存數字
-    var string: String? = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +78,7 @@ class ViewController: UIViewController {
             /// 將數字字串轉為Double，顯示在畫面上 > 用來計算
 //            let doubleStr = String(format: "%.8f", Double(numberLabel.text!) ?? 0)
 //            numberOnScreen = Double(doubleStr) ?? 0
-            numberOnScreen = Double(numberLabel.text!) ?? 0
+             numberOnScreen = Double(numberLabel.text!) ?? 0
         }
     }
     
@@ -208,7 +205,7 @@ class ViewController: UIViewController {
     func makeOkNumberString(from number: Double) {
         // 最後要呈現的字串
         var finalText: String
-        /// 假如無條件進位後的數值大小等於 原本的數值
+        /// 假如無條件進位後的數值等於 原本的數值
         if floor(number) == number {
             /// 則轉為Int 去小數點
             finalText = "\(Int(number))"
